@@ -21,7 +21,7 @@ class department(models.Model):
 	department_name=models.CharField(max_length=30)
 	
 class prescription(models.Model):
-	appointment_id = models.ForeignKey(appointment, on_delete=models.CASCADE)
+#	appointment_id = models.ForeignKey(appointment, on_delete=models.CASCADE)
 	department_id = models.ForeignKey(department, on_delete=models.CASCADE)
 	medicine = models.CharField(max_length=30)
 	advice = models.CharField(max_length=30)
