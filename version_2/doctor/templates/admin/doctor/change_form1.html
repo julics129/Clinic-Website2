@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html>
+
+{% load static %}
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<img src="{% static 'assets/img/header1.jpg' %}" alt="" class="img-fluid" >
+<hr class="solid">
+{% for i in queryset %}	
+
+<table style="border-collapse: collapse; width: 100%;" border="0">
+<tbody>
+<tr>
+<td style="width: 39.2983%; text-align: left; padding: 5px 10px 5px 90px;">Patient Name:{{i.appointment_id.PatientName}}</td>
+<td style="width: 11.6179%;">&nbsp;</td>
+<td style="width: 11.6179%; text-align: left;">Gender:{{i.appointment_id.Gender}}</td>
+<td style="width: 17.4659%; text-align: center;">Age:{{i.appointment_id.Age}}</td>
+<td style="width: 20%; text-align: left;">Weight:_____</td>
+</tr>
+<tr>
+<td style="width: 39.2983%;">&nbsp;</td>
+<td style="width: 11.6179%;">&nbsp;</td>
+<td style="width: 11.6179%; " colspan=2>
+<div class="td" style="text-align: left; ">Date:{{i.appointment_id.AppointmentDate}}</div>
+</td>
+
+<td style="width: 20%;">
+<div class="table">
+<div class="tr">
+<div>
+<div class="td" style="text-align: left;">Ref_No:_____</div>
+</div>
+</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="solid">
+	
+<table style="border-collapse: collapse; width: 100%;" border="0">
+<tbody>
+<tr>
+<td style="width: 39.2983%; text-align: left; padding: 5px 10px 5px 90px;"><h4>Medicine:<br>{{i.medicine}}</h4></td>
+<td style="width: 11.6179%; " colspan=2>
+<div class="td" style="text-align: left; "><h4>Advice:<br>{{i.advice}}</h4></div>
+</td>
+</tr>
+<tr>
+
+
+
+</tr>
+</tbody>
+</table>
+		
+					<br><br><br><br><br><br><br><br>
+					
+{% endfor %}	
+
+
+				
+				<button onclick="window.print()">Print this page</button>
+	
+
+
+</div>	
+<hr class="solid">	
+</body>
+</html>
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+<script>
+    $( document ).ready(function() {
+        //window.print();
+    });
+ 
+    $( window ).on( "load", function() {
+        console.log( "window loaded" );
+    });
+</script>

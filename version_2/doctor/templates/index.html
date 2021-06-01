@@ -2,12 +2,22 @@
 <html lang="en">
 {% load static %}
 
+<head>
+		<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+			
 
+</head>
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+			<script src='static/Chart.min.js'></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
   <title>Medicio Bootstrap Template - Index</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
@@ -372,23 +382,28 @@
         </div>
 		<form method="post">
 			{%csrf_token%}
-			<div class="form-row">
+			<div class="form-row row">
 			
-			{% for i in form %}
-				<div class="form-group">
-							{{i.errors}}
-						<div class="form-group">
-							{{i}}
-						</div>
-						
+				{% for i in form %}
+				<div class="form-group col-md-4">
+						{{i.errors}}
+					<div class="form-group">
+						{{i.label_tag}}
+					</div>
+					<div class="form-group">
+						{{i}}
+					</div>
 				    <div class="validate"></div>
 				</div> 
-			{% endfor %}
+				{% endfor %}
+				<div id = "doc_avail" name="doc_avail">
+				
+				</div>
 				
 			</div>
 			<!--  {{form.as_p}} -->
 			
-			<button type="submit">submit</button>
+			<button type="submit" class='form-group appointment-btn scrollto col-md-4'>submit</button>
 			{% if formsuccess == 'form_ok' %}
 				<h3 class="text-success">form successfully submitted</h1>
 			{% elif formsuccess == 'form_not _ok' %}
@@ -1150,7 +1165,68 @@ if (form1success == 'form1_ok') {
         }
      })
 });
-		
-</script>
 
+
+</script>
+<script>
+$('#id_department_id').parent().hide();
+$('label[for="id_department_id"]').hide();
+$('#id_Department').change(function(){
+	alert('hi');
+	
+	var catid;
+	dep_name = this.value;
+	console.log(dep_name)
+	$.ajax(
+	{
+		type:"GET",
+		url:"/department_doc",
+		data:{
+				dep_name:dep_name
+		
+		},
+		success: function( data )
+		{
+			console.log(data)
+			dataparse=JSON.parse(data)
+			console.log(dataparse)
+			console.log(dataparse.d1)
+			if(dataparse.d1){
+				$('#id_DoctorName').html( "<select id='DoctorName'><option>"+dataparse.d1+"</option></select>" );
+				$('#id_department_id').html("<select id='department_id'><option>"+dataparse.d2+"</option></select>" );
+				$('#id_Hour').html("<select id='Hour'><option>"+dataparse.d3+"</option></select>");
+			
+			}
+        }
+     })
+});
+</script>
+<script>
+ $('#id_Minute').change(function(){
+    var catid;
+    app_date = this.value;
+	console.log(app_date)
+    $.ajax(
+    {
+        type:"GET",
+        url: "/count_appo",
+        data:{
+                 app_date: app_date
+        },
+        success: function( data ) 
+        {
+            console.log(data)
+			data2=JSON.parse(data)
+			console.log(data2)
+			console.log(data2.d1)
+			if(data2.d4<1){
+				$('#doc_avail').html( "<b>Appointment Available</b>" );
+				}
+			else{
+				$('#doc_avail').html( "<b>Appointment Full, Please choose any other timing.</b>" );
+			}
+        }
+     })
+});
+</script>
 </html>
