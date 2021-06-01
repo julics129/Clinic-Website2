@@ -68,7 +68,7 @@ admin.site.register(medicines,medicinesAdmin)
 class doctorPrescription(admin.ModelAdmin):
 	inlines = (medicine_inline,)
 	change_form_template = 'admin/doctor/doctorPrescription/change_form2.html'
-	list_display=('medicine','advice','print_prescriptions',)
+	list_display=('appointment_id','advice','print_prescriptions',)
 	search_fields=('medicine','advice','appointment__PatientName')
 	
 	autocomplete_fields = ['appointment_id']

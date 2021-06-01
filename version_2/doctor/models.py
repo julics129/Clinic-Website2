@@ -45,7 +45,7 @@ class contact(models.Model):
 	
 class prescription(models.Model):
 	appointment_id = models.ForeignKey(appointment, on_delete=models.CASCADE)
-	medicine = models.CharField(max_length=30)
+	##medicine = models.CharField(max_length=30)
 	advice = models.CharField(max_length=30)
 
 class medicines_list(models.Model):
