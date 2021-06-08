@@ -59,3 +59,7 @@ class medicines(models.Model):
     medicine_name = models.ForeignKey(medicines_list, on_delete=models.CASCADE)
     pres_id = models.ForeignKey(prescription, on_delete=models.CASCADE)
     medicine_dose = models.CharField(max_length=100)
+	
+class lab_test(models.Model):
+	test_name = models.CharField(max_length=100)
+	

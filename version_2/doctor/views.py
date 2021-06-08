@@ -13,6 +13,8 @@ from rest_framework.response import Response
 
 # Create your views here.
 from django.http import HttpResponse
+from django.conf import settings
+from django.core.mail import send_mail
 
 
 def home(request):
@@ -59,17 +61,38 @@ def index(request):
 		if request.method == 'POST':
 			print('hi')
 			form=appointment_form(request.POST)
+			
 			form1=contact_form(request.POST)
 			
 			if form.is_valid():
 				formsuccess='form_ok'
+				
 				print('form valid')
-				s=form.data['DoctorName'] 
+				s=form.data['DoctorName']
+				
 				form.key_department_id = department.objects.get(doctor_name=s)
 				
 				id_test = department.objects.all().filter(doctor_name=s).values('id')
 				print(id_test[0]['id'])
 				form.save()
+				name=request.POST['PatientName']
+				email=request.POST['PatientEmail']
+				date=request.POST['AppointmentDate']
+				hour=request.POST['Hour']
+				minute=request.POST['Minute']
+				user=appointment.objects.create_user( 
+						username=name,
+						email=email
+						
+					)
+					
+				login(request,user)
+				subject = 'appointment confirmation'
+				message = 'hi '+{user.Name}+', your appointment booked successfully on' +{user.Date}+'.'
+				email_from = settings.EMAIL_HOST_USER
+				recipient_list = [user.Email,]
+				send_mail(subject, message, email_from, recipient_list)
+				return ("h1")
 			else:
 				formsuccess='form_not_ok'
 				print("Form Error :\n")

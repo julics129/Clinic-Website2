@@ -46,7 +46,7 @@ class medicines_list_inline(admin.TabularInline):
 
 class medicine_inline(admin.TabularInline):
     model = medicines
-    extra = 1
+    extra = 5
     #raw_id_fields = ("medicine_name",)	
 
     autocomplete_fields = ['medicine_name']
